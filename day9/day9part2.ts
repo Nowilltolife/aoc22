@@ -1,5 +1,10 @@
 import { getTestCases } from "../lib"
 
+/**
+ * Complete rewrite of day 9 cus original solution sucked and only worked for the specific case
+ * here im using delta movement for the tail
+ */
+
 interface position {
     x: number,
     y: number
@@ -23,12 +28,14 @@ function moveHead(head: position, dir: direction): position {
 
 function moveTail(head: position, tail: position): position {
     // movement algorithm based on delta
+    // dx: abs(ax - bx) = 0, 1, 2; dy: abs(ay - by) = 0, 1, 2
+    // dx and dy is the distance of p_a and p_b
     const buffer = { x: tail.x, y: tail.y }
     const delta = {
         x: head.x - tail.x,
         y: head.y - tail.y
     }
-    const absDelta = {
+    const absDelta = { // absolute delta
         x: Math.abs(delta.x),
         y: Math.abs(delta.y)
     }
@@ -42,6 +49,7 @@ function moveTail(head: position, tail: position): position {
     if (absDelta.x === 2) {
         if(absDelta.y !== 0) {
             buffer.y = head.y // correct y
+            // tail needs to move to the same y as head
         }
         // move horizontally
         buffer.x += delta.x / 2
@@ -50,6 +58,7 @@ function moveTail(head: position, tail: position): position {
     if (absDelta.y === 2) {
         if(absDelta.x !== 0) {
             buffer.x = head.x // correct x
+            // tail needs to move to the same x as head
         }
         // move vertically
         buffer.y += delta.y / 2
