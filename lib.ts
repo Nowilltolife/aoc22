@@ -8,3 +8,7 @@ export function getTestCases(base: string): string[] {
 export function extractAfter(input: string, spliterator: string): string {
     return input.substring(input.indexOf(spliterator) + spliterator.length)
 }
+
+export function sum(input: number[]): number {
+    return input.reduce((a, b) => a + b)
+}
